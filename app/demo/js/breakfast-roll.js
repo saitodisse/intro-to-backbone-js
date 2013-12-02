@@ -63,17 +63,6 @@
       }
   });
 
-  BreakfastRoll.Index.Recipes = Backbone.View.extend({
-      tagName: "ul"
-    , render: function() {
-        this.collection.each(function(recipe){
-          var view = new BreakfastRoll.Index.Recipe({model: recipe});
-          this.$el.append(view.render().el);
-        }, this);
-        return this;
-      }
-  });
-
   BreakfastRoll.Index.Recipe = Backbone.View.extend({
       events:{
         "click button": "delete"
@@ -89,10 +78,20 @@
       }
   });
 
-  /*
-   * To do:
-   *   Also, a delete button to remove it
-   */
+  // backbone mixing
+  BreakfastRoll.CollectionView = Backbone.View.extend({
+    render: function() {
+      this.collection.each(function(model){
+        var view = new this.subView({model: model});
+        this.$el.append(view.render().el);
+      }, this);
+      return this;
+    }
+  });
+
+  BreakfastRoll.Index.Recipes = BreakfastRoll.CollectionView.extend({
+      subView: BreakfastRoll.Index.Recipe
+  });
 
   BreakfastRoll.Router = Backbone.Router.extend({
       initialize: function(options) {
