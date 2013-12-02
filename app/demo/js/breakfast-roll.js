@@ -27,11 +27,12 @@
     render: function() {
       this.$el.html(this.template(this));
       
-      var form = new BreakfastRoll.Index.Form({
-        collection: this.recipes
-      });
-
-      this.$(".recipes").append(form.render().el);
+      var recipesFormView = new BreakfastRoll.Index.Form({ collection: this.recipes });
+      var recipesView = new BreakfastRoll.Index.Recipes({ collection: this.recipes });
+      
+      this.$(".recipes").append(recipesView.render().el);
+      this.$(".recipes").append(recipesFormView.render().el);
+      
       return this;
     },
     count: function() {
@@ -45,7 +46,6 @@
     className: "form",
     render: function() {
       this.$el.html(this.template(this));
-      this.name = this.$('form:eq(0)').find('#name');
       return this;
     },
     events:{
@@ -60,6 +60,28 @@
       })
 
     }
+  });
+
+  BreakfastRoll.Index.Recipes = Backbone.View.extend({
+    tagName: "ul",
+    render: function() {
+      this.collection.each(function(recipe){
+        var view = new BreakfastRoll.Index.Recipe({model: recipe});
+        this.$el.append(view.render().el);
+      }, this);
+      return this;
+    },
+  });
+
+  BreakfastRoll.Index.Recipe = Backbone.View.extend({
+      template: template('recipe')
+    , tagName: "li"
+    , render: function() {
+        this.$el.html(this.template(this));
+        return this;
+      }
+    , name: function(){ return this.model.get("name") }
+    , ingredients: function(){ return this.model.get("ingredients") }
   });
 
   /*
