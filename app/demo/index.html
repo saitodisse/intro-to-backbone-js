@@ -30,22 +30,32 @@
     </div>
 
     <script type="text/x-mustache-template" id="index-template">
-      <h2>There are {{ count }} recipes</h2>
+      <h2>Recipes: {{ count }}</h2>
+      <div class="recipes"></div>
     </script>
+
+    <script type="text/x-mustache-template" id="form-template">
+      <form>
+        <div class='control-group'>
+          <label class='control-label' for='name'>Recipe Name:</label>
+          <div class='controls'>
+            <input type='text' class='input-xlarge' id='name'>
+          </div>
+        </div>
+        <div class='control-group'>
+          <label class='control-label' for='ingredients'>Ingredients:</label>
+          <div class='controls'>
+            <input type='text' class='input-xlarge' id='ingredients'>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </script>
+
     <!-- TODO:
       * A template for an individual recipe
-      * A template for a recipe creation form
-        for this, here is a bootstrap form element:
-          <div class='control-group'>
-            <label class='control-label' for='id_of_field'>Field</label>
-            <div class='controls'>
-              <input type='text' class='input-xlarge' id='id_of_field'>
-            </div>
-          </div>
-        and a bootstrap submit button:
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
     -->
 
     <script src="js/jquery.js"></script>

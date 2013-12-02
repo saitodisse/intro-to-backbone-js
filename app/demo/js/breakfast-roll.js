@@ -22,10 +22,25 @@
     },
     render: function() {
       this.$el.html(this.template(this));
+      var form = new BreakfastRoll.Index.Form();
+      this.$(".recipes").append(form.render().el);
       return this;
     },
     count: function() {
       return this.recipes.length;
+    }
+  });
+
+  BreakfastRoll.Index.Form = Backbone.View.extend({
+    template: template('form'),
+    initialize: function() {
+      this.recipe = new BreakfastRoll.Recipe();
+      //this.recipe.on('all', this.render, this);
+      //this.recipes.fetch();
+    },
+    render: function() {
+      this.$el.html(this.template(this));
+      return this;
     }
   });
 
